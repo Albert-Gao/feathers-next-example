@@ -24,7 +24,8 @@
   "scripts": {
     "test": "yarn run eslint && yarn run mocha",
     "eslint": "eslint server/. test/. --config .eslintrc.json",
-    "start": "node server/",
+    "build": "next build ./client/",    
+    "start": "NODE_ENV=production node server/",
     "mocha": "mocha test/ --recursive --exit",
     "dev": "next ./client"
   },
