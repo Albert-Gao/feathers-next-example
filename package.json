@@ -41,12 +41,12 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "serve-favicon": "^2.4.5",
-    "winston": "^2.4.0"
+    "winston": "^2.4.1"
   },
   "devDependencies": {
     "eslint": "^4.18.2",
     "mocha": "^5.0.4",
-    "request": "^2.83.0",
+    "request": "^2.85.0",
     "request-promise": "^4.2.2"
   }
 }
