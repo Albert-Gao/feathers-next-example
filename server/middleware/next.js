@@ -11,8 +11,6 @@ const isFeathersService = path => feathersServices[path] === true;
 
 module.exports = function(options = {}) {
   return function next(req, res, next) {
-    return isFeathersService(req.originalUrl)
-      ? next()
-      : handle(req, res);
+    return isFeathersService(req.path) ? next() : handle(req, res);
   };
 };
