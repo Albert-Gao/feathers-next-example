@@ -1,15 +1,13 @@
 const path = require('path');
 const favicon = require('serve-favicon');
 const compress = require('compression');
-const cors = require('cors');
 const helmet = require('helmet');
-const logger = require('winston');
+const cors = require('cors');
+const logger = require('./logger');
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
-
-
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -20,9 +18,9 @@ const app = express(feathers());
 
 // Load app configuration
 app.configure(configuration());
-// Enable CORS, security, compression, favicon and body parsing
-app.use(cors());
+// Enable security, CORS, compression, favicon and body parsing
 app.use(helmet());
+app.use(cors());
 app.use(compress());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +30,6 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);

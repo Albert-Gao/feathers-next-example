@@ -1,4 +1,3 @@
-const assert = require('assert');
 const rp = require('request-promise');
 const url = require('url');
 const app = require('../server/app');
@@ -11,44 +10,47 @@ const getUrl = pathname => url.format({
   pathname
 });
 
-describe('Feathers application tests', () => {
-  before(function(done) {
+describe('Feathers application tests (with jest)', () => {
+  beforeAll(done => {
     this.server = app.listen(port);
     this.server.once('listening', () => done());
   });
 
-  after(function(done) {
+  afterAll(done => {
     this.server.close(done);
   });
 
   it('starts and shows the index page', () => {
-    return rp(getUrl()).then(body =>
-      assert.ok(body.indexOf('<html>') !== -1)
+    expect.assertions(1);
+    return rp(getUrl()).then(
+      body => expect(body.indexOf('<html>')).not.toBe(-1)
     );
   });
 
-  describe('404', function() {
+  describe('404', () => {
     it('shows a 404 HTML page', () => {
+      expect.assertions(2);
       return rp({
         url: getUrl('path/to/nowhere'),
         headers: {
           'Accept': 'text/html'
         }
       }).catch(res => {
-        assert.equal(res.statusCode, 404);
-        assert.ok(res.error.indexOf('<html>') !== -1);
+        expect(res.statusCode).toBe(404);
+        expect(res.error.indexOf('<html>')).not.toBe(-1);
       });
     });
 
     it('shows a 404 JSON error without stack trace', () => {
+      expect.assertions(4);
       return rp({
         url: getUrl('path/to/nowhere'),
         json: true
       }).catch(res => {
-        assert.equal(res.statusCode, 404);
-        assert.equal(res.error.code, 404);
-        assert.equal(res.error.message, 'Page not found');
-        assert.equal(res.error.name, 'NotFound');
+        expect(res.statusCode).toBe(404);
+        expect(res.error.code).toBe(404);
+        expect(res.error.message).toBe('Page not found');
+        expect(res.error.name).toBe('NotFound');
       });
     });
   });
