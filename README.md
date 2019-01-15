@@ -15,14 +15,14 @@ Including some optimizing and request handling tips.
 
 ## How to dev
 
-Normally, you just use `npm run server:dev`, then you can work on the server or client at the same time. It will run `feathers.js`. But any changes you made in the `./client/` part will be hot reloaded and reflect to the actual page.
+Normally, you just use `npm run server:dev`, then you can work on the server and client at the same time. It will run `feathers.js`. But any changes you made in the `./client/` part will be hot reloaded and reflect to the actual page.
 
 If you only want to work on the client side, just call `npm run client:dev`
 
 ## How to deploy
 
-- `npm run client:build`: To bundle the production ready code.
-- `npm run server:start:prod`: To start the server. (You might want to use `PM2` or `nodemon` here.)
+1. `npm run client:build`: To bundle the production ready code.
+2. `npm run server:start:prod`: To start the server. (You might want to use `PM2` or `nodemon` here.)
 
 ## How to check it works
 
