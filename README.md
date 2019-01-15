@@ -33,11 +33,11 @@ If you only want to work on the client side, just call `npm run client:dev`
 
 ## Important
 
-Every time you add a `feathers service`, make sure to add it to `./server/nextApp.js`:
+Every time you add a `feathers service`, make sure to add it to `feathersServices` in `./server/middleware/next.js` like this:
 
 ```javascript
 const feathersServices = {
-  '/users': '/users',
+  '/users': true,
 };
 ```
 

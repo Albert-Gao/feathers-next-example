@@ -1,12 +1,18 @@
 const handle = require('../nextApp').handle;
-const isFeathersService = require('../nextApp').isFeathersService;
+
+// Add your own services here.
+// If the path is not been added here
+// it will be passed to next.js
+const feathersServices = {
+  '/users': true,
+};
+
+const isFeathersService = path => feathersServices[path] === true;
 
 module.exports = function(options = {}) {
   return function next(req, res, next) {
-    if (isFeathersService(req.originalUrl)) {
-      return next();
-    } else {
-      return handle(req, res);
-    }
+    return isFeathersService(req.originalUrl)
+      ? next()
+      : handle(req, res);
   };
 };
