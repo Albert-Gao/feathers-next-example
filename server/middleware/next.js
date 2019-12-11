@@ -9,7 +9,7 @@ const feathersServices = {
 
 const isFeathersService = path => feathersServices[path] === true;
 
-module.exports = function(options = {}) {
+module.exports = function() {
   return function next(req, res, next) {
     return isFeathersService(req.path) ? next() : handle(req, res);
   };

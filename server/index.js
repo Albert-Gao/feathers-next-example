@@ -2,10 +2,11 @@
 const logger = require('./logger');
 const app = require('./app');
 const nextApp = require('./nextApp').nextApp;
+const hostname = app.get('host');
 const port = app.get('port');
 
 nextApp.prepare().then(() => {
-  const server = app.listen(port);
+  const server = app.listen(port, hostname);
 
   process.on('unhandledRejection', (reason, p) =>
     logger.error('Unhandled Rejection at: Promise ', p, reason),
@@ -14,7 +15,7 @@ nextApp.prepare().then(() => {
   server.on('listening', () =>
     logger.info(
       'Feathers application started on http://%s:%d',
-      app.get('host'),
+      hostname,
       port,
     ),
   );
